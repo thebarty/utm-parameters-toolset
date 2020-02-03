@@ -1,6 +1,6 @@
 {
   "name": "utm-parameters-toolset",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Detect Utm parameters in url and store them to cookie. When needed, read them from cookie.",
   "keywords": [
     "utm",
@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.0.0",
     "babel-plugin-external-helpers": "6.22.0",
@@ -80,6 +81,7 @@
   "dependencies": {
     "browser-cookies": "^1.2.0",
     "delve": "^0.3.2",
-    "dlv": "^1.1.3"
+    "dlv": "^1.1.3",
+    "query-string": "^6.10.1"
   }
 }

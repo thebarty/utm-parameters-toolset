@@ -12,46 +12,58 @@ const utmParameters = [
   'referer' // special case
 ]
 export class Utm {
-  constructor ({expires = 365, domain = 'localhost'}) {
-    this.expires = expires
-    this.domain = domain
+  constructor (options = {}) {
+    this.expires = options.expires || 365
+    this.domain = options.domain || 'localhost'
     this.prefix = 'utm_toolkit_'
   }
-  stripPrefix (parameterName) {
-    return parameterName.substring(this.prefix.length, parameterName.length)
-  }
+  /**
+   * Store utm_parameters to cookie
+   */
   store () {
-    // `window.location`
-    const search = delve(window, 'history.location.search')
-    const searchAsObject = queryString.parse(search)
-    utmParameters.forEach(parameterName => {
-      const foundValue = searchAsObject[parameterName]
-      if (foundValue) {
-        console.log(`found "${foundValue}" for parameterName`)
-        cookies.set(`${this.prefix}${parameterName}`, foundValue, {
+    try {
+      // `window.location`
+      const search = delve(window, 'location.search')
+      const searchAsObject = queryString.parse(search)
+      utmParameters.forEach(parameterName => {
+        const foundValue = searchAsObject[parameterName]
+        if (foundValue) {
+          cookies.set(`${this.prefix}${parameterName}`, foundValue, {
+            expires: this.expires,
+            domain: this.domain
+          })
+        }
+      })
+      // referer
+      const referer = delve(window, 'document.referer')
+      if (referer) {
+        cookies.set(`${this.prefix}referer`, referer, {
           expires: this.expires,
           domain: this.domain
         })
       }
-    })
-    // referer
-    const referer = delve(window, 'document.referer')
-    if (referer) {
-      console.log(`found "${referer}" for referer`)
-      cookies.set(`${this.prefix}referer`, referer, {
-        expires: this.expires,
-        domain: this.domain
-      })
+    } catch (e) {
+      console.log('[Utm.store] error', e)
     }
   }
+  /**
+   * Read utm_parameters from cookie
+   * @returns Object
+   */
   get () {
-    // `window.location`
-    const returnValue = {}
-    utmParameters.forEach(parameterName => {
-      const foundValue = cookies.get(`${this.prefix}${parameterName}`)
-      if (foundValue) {
-        returnValue[this.stripPrefix(parameterName)] = foundValue
-      }
-    })
+    try {
+      // `window.location`
+      const returnValue = {}
+      utmParameters.forEach(parameterName => {
+        const cookieKey = `${this.prefix}${parameterName}`
+        const foundValue = cookies.get(cookieKey)
+        if (foundValue) {
+          returnValue[parameterName] = foundValue
+        }
+      })
+      return returnValue
+    } catch (e) {
+      console.log('[Utm.store] error', e)
+    }
   }
 }
