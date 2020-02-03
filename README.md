@@ -14,7 +14,7 @@
   import { Utm } from 'utm-parameters-toolset'
   // create utm instance (set domain for allowed domains / subdomain)
   const utm = new Utm({
-    domain: '.mydomain.com',  // support subdomain
+    domain: '.localhost',  // support subdomain
     expires: 365,
   })
   utm.store()  // simply store everything from window.location to cookies
