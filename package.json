@@ -1,10 +1,12 @@
 {
   "name": "utm-parameters-toolset",
-  "version": "0.1.0",
-  "description": "Detect Utm-parameters in url and store them to cookie. When needed, read them from cookie.",
+  "version": "0.1.1",
+  "description": "Detect Utm parameters in url and store them to cookie. When needed, read them from cookie.",
   "keywords": [
     "utm",
     "parameters",
+    "parameter",
+    "utm parameter",
     "cookies",
     "localstorage"
   ],

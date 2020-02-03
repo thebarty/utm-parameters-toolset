@@ -1,4 +1,10 @@
-# Utm Parameters to cookies
+# Utm Parameter to cookies
+
+Read utm parameters from the url and store them in a cookie.
+
+So that you can read them on a different subdomain....
+
+Have fun!
 
 ## Install
 
@@ -14,7 +20,7 @@
   import { Utm } from 'utm-parameters-toolset'
   // create utm instance (set domain for allowed domains / subdomain)
   const utm = new Utm({
-    domain: '.localhost',  // support subdomain
+    domain: '.yourdomain.com',  // support subdomain
     expires: 365,
   })
   utm.store()  // simply store everything from window.location to cookies

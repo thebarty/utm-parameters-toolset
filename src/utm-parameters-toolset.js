@@ -17,7 +17,10 @@ export class Utm {
     this.domain = domain
     this.prefix = 'utm_toolkit_'
   }
-  static store () {
+  stripPrefix (parameterName) {
+    return parameterName.substring(this.prefix.length, parameterName.length)
+  }
+  store () {
     // `window.location`
     const search = delve(window, 'history.location.search')
     const searchAsObject = queryString.parse(search)
@@ -41,13 +44,13 @@ export class Utm {
       })
     }
   }
-  static get () {
+  get () {
     // `window.location`
     const returnValue = {}
     utmParameters.forEach(parameterName => {
       const foundValue = cookies.get(`${this.prefix}${parameterName}`)
       if (foundValue) {
-        returnValue[parameterName] = foundValue
+        returnValue[this.stripPrefix(parameterName)] = foundValue
       }
     })
   }
