@@ -25,6 +25,7 @@ Have fun!
   })
   utm.store()  // simply store everything from window.location to cookies
   utm.get()    // get everything from cookies as object
+  utm.clear()  // clear storage
 ```
 
 ### License

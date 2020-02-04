@@ -66,4 +66,19 @@ export class Utm {
       console.log('[Utm.store] error', e)
     }
   }
+  /**
+   * Clear utm_parameters from cookie
+   */
+  clear () {
+    try {
+      const returnValue = {}
+      utmParameters.forEach(parameterName => {
+        const cookieKey = `${this.prefix}${parameterName}`
+        cookies.erase(cookieKey)
+      })
+      return returnValue
+    } catch (e) {
+      console.log('[Utm.clear] error', e)
+    }
+  }
 }
